@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Caso de estudio - Cola</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; }
+    button { padding: 8px 12px; margin: 4px 0; }
+    input { padding: 8px; }
+    ul { background: #f0f0f0; padding: 15px 30px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+  <h2>Título de tu caso</h2>
+  <input id="inputDato" placeholder="Escribe un dato">
+  <button id="btnAgregar">Agregar</button>
+  <button id="btnQuitar">Quitar</button>
+  <ul id="lista"></ul>
+
+  <script>
+    class Cola {
+      items = [];
+      enqueue(el) {
+        this.items.push(el);
+        console.log(">> Entró:", el);
+      }
+      dequeue() {
+        const salido = this.items.shift();
+        console.log(">> Salió:", salido);
+        return salido;
+      }
+      isEmpty() {
+        return this.items.length === 0;
+      }
+    }
+
+    const estructura = new Cola();
+
+    document.getElementById('btnAgregar').addEventListener('click', () => {
+      const valor = document.getElementById('inputDato').value.trim();
+      if (valor === '') return;
+      estructura.enqueue(valor);
+      document.getElementById('inputDato').value = '';
+      actualizarPantalla();
+    });
+
+    document.getElementById('btnQuitar').addEventListener('click', () => {
+      estructura.dequeue();
+      actualizarPantalla();
+    });
+
+    function actualizarPantalla() {
+      const ul = document.getElementById('lista');
+      ul.innerHTML = '';
+      estructura.items.forEach(el => {
+        const li = document.createElement('li');
+        li.textContent = el;
+        ul.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>

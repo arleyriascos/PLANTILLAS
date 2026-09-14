@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Caso de estudio - Lista</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; }
+    button { padding: 8px 12px; margin: 4px 0; }
+    input { padding: 8px; }
+    ul { background: #f0f0f0; padding: 15px 30px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+  <h2>Título de tu caso</h2>
+  <input id="inputDato" placeholder="Escribe un dato">
+  <button id="btnAgregar">Agregar</button>
+  <button id="btnQuitar">Quitar último</button>
+  <ul id="lista"></ul>
+
+  <script>
+    class Lista {
+      items = [];
+      agregar(el) {
+        this.items.push(el);
+        console.log(">> Se agregó:", el);
+      }
+      eliminar(indice) {
+        if (indice >= 0 && indice < this.items.length) {
+          const eliminado = this.items.splice(indice, 1)[0];
+          console.log(">> Se eliminó:", eliminado);
+        }
+      }
+      buscar(valor) {
+        return this.items.indexOf(valor); // -1 si no existe
+      }
+    }
+
+    const estructura = new Lista();
+
+    document.getElementById('btnAgregar').addEventListener('click', () => {
+      const valor = document.getElementById('inputDato').value.trim();
+      if (valor === '') return;
+      estructura.agregar(valor);
+      document.getElementById('inputDato').value = '';
+      actualizarPantalla();
+    });
+
+    document.getElementById('btnQuitar').addEventListener('click', () => {
+      estructura.eliminar(estructura.items.length - 1); // quita el último
+      actualizarPantalla();
+    });
+
+    function actualizarPantalla() {
+      const ul = document.getElementById('lista');
+      ul.innerHTML = '';
+      estructura.items.forEach((el, i) => {
+        const li = document.createElement('li');
+        li.textContent = `[${i}] ${el}`;
+        ul.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
