@@ -1,0 +1,88 @@
+📋 CASO DE ESTUDIO
+
+"Una farmacia atiende a sus clientes por orden de llegada. Cuando un cliente llega, se anota en el sistema. El farmacéutico atiende siempre al cliente que lleva más tiempo esperando, y una vez atendido, sale del sistema. Se necesita un programa que permita registrar la llegada de clientes, atenderlos en orden y visualizar quiénes están esperando."
+
+🤔 Paso 1: ¿Qué estructura es?
+
+Pregúntate: ¿quién sale primero, el primero o el último que llegó?
+
+En este caso dice claramente: "atiende siempre al cliente que lleva más tiempo esperando" → el que llegó primero, sale primero.
+
+Eso es el patrón FIFO (First In, First Out) → es una Cola.
+
+(Si dijera algo como "el último documento que archivaste es el primero que revisas" → sería una Pila, LIFO)
+
+🤔 Paso 2: ¿Qué palabras del caso traduzco al código?
+En el caso de estudio dice...	En la plantilla cambio...
+"clientes"	placeholder del input
+"farmacia"	título <h2>
+"registrar llegada"	texto del botón agregar
+"atender"	texto del botón quitar
+✅ Paso 3: Tomo la plantilla de Cola y solo cambio esas partes
+html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de atención - Farmacia</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; }
+    button { padding: 8px 12px; margin: 4px 0; }
+    input { padding: 8px; }
+    ul { background: #f0f0f0; padding: 15px 30px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+  <h2>Sistema de atención - Farmacia</h2>
+  <input id="inputDato" placeholder="Nombre del cliente">
+  <button id="btnAgregar">Registrar llegada</button>
+  <button id="btnQuitar">Atender cliente</button>
+  <ul id="lista"></ul>
+
+  <script>
+    class Cola {
+      items = [];
+      enqueue(el) {
+        this.items.push(el);
+        console.log(">> Llegó:", el);
+      }
+      dequeue() {
+        const atendido = this.items.shift();
+        console.log(">> Se atendió a:", atendido);
+        return atendido;
+      }
+      isEmpty() {
+        return this.items.length === 0;
+      }
+    }
+
+    const estructura = new Cola();
+
+    document.getElementById('btnAgregar').addEventListener('click', () => {
+      const valor = document.getElementById('inputDato').value.trim();
+      if (valor === '') return;
+      estructura.enqueue(valor);
+      document.getElementById('inputDato').value = '';
+      actualizarPantalla();
+    });
+
+    document.getElementById('btnQuitar').addEventListener('click', () => {
+      estructura.dequeue();
+      actualizarPantalla();
+    });
+
+    function actualizarPantalla() {
+      const ul = document.getElementById('lista');
+      ul.innerHTML = '';
+      estructura.items.forEach(el => {
+        const li = document.createElement('li');
+        li.textContent = el;
+        ul.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
+
+Nota lo que NO cambié: la clase Cola, sus métodos (enqueue, dequeue), y toda la lógica interna. Eso siempre se queda igual — solo es "ropa" (títulos, textos) lo que se adapta.

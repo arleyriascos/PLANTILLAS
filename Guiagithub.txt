@@ -9,3 +9,41 @@ git branch -M main
 git remote add origin https://github.com/TU-USUARIO/TU-REPOSITORIO.git
 
 git push -u origin main
+
+
+Escenario 2: Ya tienes el repo conectado (el que más vas a usar en el examen)
+
+Si ya hiciste el paso anterior una vez y solo necesitas subir cambios nuevos, son solo 3 comandos:
+
+
+git add .
+
+git commit -m "avance del caso de estudio"
+
+git push
+
+🧠 Lo mínimo que necesitas entender (sin tecnicismos)
+
+¿Qué es una clase?
+Es un "molde" para crear objetos. class Pila {} define cómo se comporta una pila. Luego new Pila() crea una pila real que puedes usar.
+
+¿Qué es POO (Programación Orientada a Objetos)?
+Es organizar el código en "objetos" que tienen:
+
+Datos (items = [] → lo que guarda el objeto)
+Comportamientos/métodos (push(), pop() → lo que el objeto puede hacer)
+
+¿Cómo identificar en el caso de estudio cuál estructura usar?
+
+Si dice "el primero en llegar es el primero en salir" (fila de banco, ticket de atención) → Cola
+Si dice "el último en llegar es el primero en salir" (pila de platos, deshacer/undo) → Pila
+Si dice "quiero buscar, modificar o eliminar cualquier elemento libremente" (lista de productos, contactos) → Lista
+
+¿Qué tengo que cambiar yo en el examen?
+Solo 3 cosas, normalmente:
+
+El título en el <h2>.
+El placeholder del input (ej: "Escribe un cliente" en vez de "Escribe un dato").
+A veces el nombre de la clase (Cola, Pila, Lista) según lo que pida el caso — pero eso ya te lo di listo en cada plantilla.
+
+Guarda estas 3 plantillas tal cual en tu computador (o en un correo a ti mismo) antes del examen. En el examen, abres la que corresponda al caso, cambias el título/placeholder, y listo — sin necesitar IA.
